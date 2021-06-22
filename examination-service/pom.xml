@@ -8,7 +8,7 @@
 		<version>2.5.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.examination-system-microservices.examinationservice</groupId>
+	<groupId>com.examinationsystemmicroservices.examinationservice</groupId>
 	<artifactId>examination-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>examination-service</name>
