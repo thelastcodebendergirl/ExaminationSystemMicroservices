@@ -18,10 +18,10 @@ public class CourseController {
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping("/create")
-	public String create()
+	@GetMapping(path ="/create" )
+	public ResponseEntity<String>  create()
 	{
-		return "hello";
+		return ResponseEntity.ok("hello");
 	}
 
 	@GetMapping("/getAllCourses")
