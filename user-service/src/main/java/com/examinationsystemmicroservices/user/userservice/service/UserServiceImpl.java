@@ -3,17 +3,20 @@ package com.examinationsystemmicroservices.user.userservice.service;
 import com.examinationsystemmicroservices.user.userservice.model.User;
 import com.examinationsystemmicroservices.user.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import static java.util.Collections.emptyList;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    //todo: examination meto servise rest atılacak???
+/*    //todo: examination meto servise rest atılacak???
 
     @Override
     public User createUser(User user) {
@@ -23,6 +26,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUserById(Long userId) {
         return userRepository.findUserById(userId);
+    }*/
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return (UserDetails) new User(user.getUsername(), user.getPassword());
     }
 
 }

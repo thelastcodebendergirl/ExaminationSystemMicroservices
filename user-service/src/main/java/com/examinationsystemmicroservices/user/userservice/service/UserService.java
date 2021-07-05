@@ -1,9 +1,10 @@
 package com.examinationsystemmicroservices.user.userservice.service;
 
 import com.examinationsystemmicroservices.user.userservice.model.User;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
 
+@Service
 public interface UserService {
 
     public User createUser(User user);

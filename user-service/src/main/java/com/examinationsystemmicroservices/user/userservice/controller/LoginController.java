@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/user/login")
 public class LoginController {
 
-    @Autowired
+    /*@Autowired
     private UserService userService;
 
     @GetMapping("/{id}")
     public User findDepartmentById(@PathVariable("id") Long userId) {
         return userService.findUserById(userId);
-    }
+    }*/
 }
