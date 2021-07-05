@@ -1,7 +1,16 @@
 package com.examinationsystemmicroservices.examinationservice.examinationservice.repository;
 
-import com.examinationsystemmicroservices.examinationservice.examinationservice.model.Course;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface  CourseRepository extends JpaRepository<Course, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.examinationsystemmicroservices.examinationservice.examinationservice.model.Course;
+
+@Repository
+public interface CourseRepository extends JpaRepository<Course, Long>{
+	
+
+	
+
 }
