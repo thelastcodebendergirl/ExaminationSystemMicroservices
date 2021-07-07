@@ -15,7 +15,7 @@ public class RegisterController {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public RegisterController(UserRepository developerRepository,
+    public RegisterController(UserRepository userRepository,
                                BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;

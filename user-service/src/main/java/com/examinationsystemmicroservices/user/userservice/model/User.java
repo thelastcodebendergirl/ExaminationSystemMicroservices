@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "user" , schema = "public")
 public class User {
 
     @Id
     @GeneratedValue (strategy= GenerationType.AUTO)
+    @SequenceGenerator(name = "auto_gen", sequenceName = "A")
     private long userId;
 
     private String name;
