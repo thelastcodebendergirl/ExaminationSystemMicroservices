@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
 /*    //todo: examination meto servise rest atılacak???
-
+	ResponseType obj=  new RestTemplate().getForObject(URL, ResponseType.class, params);
     @Override
     public User createUser(User user) {
         return userRepository.save(user);

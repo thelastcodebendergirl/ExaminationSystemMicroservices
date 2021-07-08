@@ -1,7 +1,14 @@
 package com.examinationsystemmicroservices.examinationservice.examinationservice.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,10 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+
 
 
 
 @Entity
+@AllArgsConstructor
 public class Course {
 
 
@@ -22,16 +32,26 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private String name ;
+	@EmbeddedId
+	private CourseTeacherEntity name_teacher ;
 	
-	@ManyToOne(fetch = FetchType.LAZY,
-            optional = false)
-	@JoinColumn(name="user_id",nullable=false)	
-	private User teacher ;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "CourseStudents", joinColumns = @JoinColumn(name = "User"))
+	private List<User> courseStudents= new ArrayList<User>();
 	
-	public Course( String name, User teacher) {
-		this.name = name;
-		this.teacher = teacher;
+	public Course( CourseTeacherEntity name_teacher) {
+		this.name_teacher=name_teacher;
+		
+	}
+	public void addStudent(List<User> students)
+	{
+		List<User> deletedStudents =new ArrayList<User>(courseStudents);
+		deletedStudents.removeAll(students);
+		courseStudents.removeAll(deletedStudents);
+		students.removeAll(courseStudents);
+		courseStudents.addAll(students);
+	
 	}
 	
 
