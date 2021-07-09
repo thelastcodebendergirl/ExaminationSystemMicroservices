@@ -17,8 +17,13 @@ public class CourseModel {
 	}
 	public class CourseCreateModel
 	{
-		public long teacherId;
-		public String name ;
+		public String teacherusername;
+		public String coursename ;
+		
+	}
+	public class CourseSearchModel
+	{
+		public long userId;
 		
 	}
 	

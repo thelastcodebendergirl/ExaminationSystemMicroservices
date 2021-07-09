@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,10 +18,12 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,15 +35,45 @@ public class User {
     @SequenceGenerator(name = "auto_gen", sequenceName = "A")
     private long userId;
     
-    @Getter @Setter @NotNull
+    @Column(name="name")
     private String name;
-    @Getter @Setter  @NotNull
+ 	public long getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	@Column(name="lastName")
     private String lastName;
-    @Getter @Setter @NotNull
+ 	@Column(name="username")
     private String username;
-    @Getter @Setter @NotNull
+	@Column(name="password")
     private String password;
-    @Getter @Setter @NotNull
+	@Column(name="userType")
     private String userType;
     
 

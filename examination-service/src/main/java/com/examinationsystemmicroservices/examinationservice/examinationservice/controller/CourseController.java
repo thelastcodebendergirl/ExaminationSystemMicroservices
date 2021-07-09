@@ -1,7 +1,9 @@
 package com.examinationsystemmicroservices.examinationservice.examinationservice.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.model.Course;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.model.CourseModel.CourseAddStudentModel;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.model.CourseModel.CourseCreateModel;
+import com.examinationsystemmicroservices.examinationservice.examinationservice.model.CourseModel.CourseSearchModel;
+import com.examinationsystemmicroservices.examinationservice.examinationservice.model.CourseModel.CourseUpdateModel;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.model.User;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.service.CourseService;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.service.UserService;
@@ -30,11 +34,12 @@ public class CourseController {
 	UserService userService ;
 	
 	@GetMapping(path ="/getCourses" )
-	public ResponseEntity<List<Course>>  getCourses(@RequestParam(required=true) long teacherId)
+	public ResponseEntity<List<Course>>  getCourses(@RequestParam(required=true) CourseSearchModel model)
 	{
 		try {
 			 List<Course> courses = new ArrayList<Course>();
-			 //service.findAll();
+			 User user = userService.getStudent(model.userId);
+			 courses= courseService.getCoursesByUser(user);
 			 
 			 if(courses.isEmpty()) 
 				 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -48,17 +53,26 @@ public class CourseController {
 	public ResponseEntity<String>  createCourses(@RequestBody CourseCreateModel model)
 	{
 		try {
-			
-			// Course course = new Course ();
+			//teacher by user name 
+			 User teacher = userService.getTeacherByUserName(model.teacherusername);
+			 Course course = new Course (model.coursename ,teacher);
 		
 		}catch (Exception e) {
-			// TODO: handle exception
+	    	return new ResponseEntity<String>("Error occupied",HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-    	return ResponseEntity.ok("hello");
+    	return new ResponseEntity<String>("Successfull",HttpStatus.OK);
 	}
-	public ResponseEntity<String>  updateCourse()
+    @RequestMapping(value = "/updateCourse", method = RequestMethod.POST)
+	public ResponseEntity<String>  updateCourse(@RequestBody CourseUpdateModel model)
 	{
-		return ResponseEntity.ok("hello");
+		try { 
+			Course course = courseService.getCourse(model.courseId);
+			
+		
+		}catch (Exception e) {
+	    	return new ResponseEntity<String>("Error occupied",HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+    	return new ResponseEntity<String>("Successfull",HttpStatus.OK);
 	}
 	public ResponseEntity<String>  getStudeents()
 	{
@@ -71,7 +85,7 @@ public class CourseController {
 	{
 		try {
 			Course course = courseService.getCourse(model.courseId);
-			List<User> students= new ArrayList<User>();
+			Set<User> students= new HashSet<User>();
 			for (long user : model.studentIds) {
 				User student = userService.getStudent(user);
 				students.add(student);

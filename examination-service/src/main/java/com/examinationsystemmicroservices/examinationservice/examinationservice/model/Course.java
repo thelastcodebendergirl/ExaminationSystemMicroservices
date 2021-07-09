@@ -1,9 +1,13 @@
 package com.examinationsystemmicroservices.examinationservice.examinationservice.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -15,43 +19,73 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 
 
 
 
 @Entity
 @AllArgsConstructor
-public class Course {
+@Table(name = "course" , schema = "public")
+public class Course implements Serializable{
 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@EmbeddedId
-	private CourseTeacherEntity name_teacher ;
+	@Getter(value = AccessLevel.PUBLIC) @Setter(value = AccessLevel.PUBLIC)
+	@NotNull
+	@Column(name ="name" )
+	private String name ;
+	
+	
+	@Getter(value = AccessLevel.PUBLIC) @Setter(value = AccessLevel.PUBLIC)
+	@NotNull
+	@ManyToOne
+	private User  teacher ;
 	
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "CourseStudents", joinColumns = @JoinColumn(name = "User"))
-	private List<User> courseStudents= new ArrayList<User>();
+    @CollectionTable(name = "studentCourse", joinColumns = @JoinColumn(name = "courseId"))
+	private Set<User> courseStudents= new HashSet<User>();
 	
-	public Course( CourseTeacherEntity name_teacher) {
-		this.name_teacher=name_teacher;
+	public Course( String name , User teacher ) {
+		this.name=name ;
+		this.teacher=teacher;
 		
 	}
-	public void addStudent(List<User> students)
+	public void addStudent(Set<User> students)
 	{
-		List<User> deletedStudents =new ArrayList<User>(courseStudents);
+		Set<User> deletedStudents =new HashSet<User>(courseStudents);
 		deletedStudents.removeAll(students);
 		courseStudents.removeAll(deletedStudents);
 		students.removeAll(courseStudents);
 		courseStudents.addAll(students);
 	
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public User getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
 	}
 	
 

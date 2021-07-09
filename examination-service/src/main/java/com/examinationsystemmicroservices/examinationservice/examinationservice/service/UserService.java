@@ -21,7 +21,14 @@ public class UserService {
 	{
 		return userRepository.getById(studentId);
 	}
-
+	public User getTeacherById(long teacherId)
+	{
+		return userRepository.getById(teacherId);
+	}
+	public User getTeacherByUserName(String username)
+	{
+		return userRepository.findAll(username);
+	}
 
 
 }
