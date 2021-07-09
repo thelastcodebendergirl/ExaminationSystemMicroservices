@@ -3,7 +3,7 @@ package com.examinationsystemmicroservices.examinationservice.examinationservice
 import java.util.List;
 
 public class ExamModel {
-	public class ExamgGetByCourseIdModel
+	public class ExamGetByCourseIdModel
 	{
 		public long courseId;
 		public List<Long> studentIds;
@@ -22,6 +22,13 @@ public class ExamModel {
 		public long userId;
 		
 	}
+
+	public class ExamSearchModel
+	{
+		public long examId;
+
+	}
+
 	public class QuestionDataModel
 	{
 		public String question;

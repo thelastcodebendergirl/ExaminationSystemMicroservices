@@ -10,8 +10,5 @@ import com.examinationsystemmicroservices.examinationservice.examinationservice.
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long>{
-	
-
-	
 
 }

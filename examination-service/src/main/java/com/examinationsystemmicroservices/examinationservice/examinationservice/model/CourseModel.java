@@ -26,6 +26,4 @@ public class CourseModel {
 		public long userId;
 		
 	}
-	
-
 }
