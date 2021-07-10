@@ -13,9 +13,10 @@ public class LoginController {
     private UserServiceImpl userService;
 
     @PostMapping(value = "/login")
-    public String login(@RequestBody User user) {
-        userService.loadUserByUsername(user.getUsername());
-        return "done";
+    public User login(@RequestBody User user) {
+        String username = userService.loadUserByUsername(user.getUsername()).getUsername();
+        User useratRepo = userService.getUserByUsername(username);
+        return useratRepo ;
     }
 
 }
