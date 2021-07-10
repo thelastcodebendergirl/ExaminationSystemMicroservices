@@ -38,8 +38,8 @@ public class User {
     @Column(name="name")
     private String name;
 
-	@Column(name="lastName")
-    private String lastName;
+	@Column(name="lastname")
+    private String lastname;
 	
  	@Column(name="username")
     private String username;
@@ -84,7 +84,7 @@ public class User {
         this.username=username;
         this.password=password;
         this.name=name;
-        this.lastName=lastname;
+        this.lastname=lastname;
         userType=type;
     }
 }

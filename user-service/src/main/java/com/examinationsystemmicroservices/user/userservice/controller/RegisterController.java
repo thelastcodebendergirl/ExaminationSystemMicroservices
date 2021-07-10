@@ -28,7 +28,7 @@ public class RegisterController {
     public void signUp(@RequestBody User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        String url = "http://localhost:8281/userCreated" ;
-    	ResponseType obj=  new RestTemplate().getForObject(url, ResponseType.class, user);
+        String url = "http://localhost:8281/api/user/userCreated" ;
+    	ResponseType obj=  new RestTemplate().postForObject(url, user, ResponseType.class);
     }
 }

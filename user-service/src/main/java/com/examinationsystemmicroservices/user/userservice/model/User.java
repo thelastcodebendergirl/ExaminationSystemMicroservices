@@ -17,17 +17,21 @@ public class User {
     private long userId;
 
     private String name;
-    private String lastName;
+    @Column(name="lastname")
+    private String lastname;
     private String username;
     private String password;
     private String userType;
 
-    public User(String username, String password) {
-        this.username=username;
-        this.password=password;
-    }
+    public User(String name, String lastname, String username, String password, String userType) {
+		this.name = name;
+		this.lastname = lastname;
+		this.username = username;
+		this.password = password;
+		this.userType = userType;
+	}
 
-    public long getUserId() {
+	public long getUserId() {
         return userId;
     }
 
@@ -44,11 +48,11 @@ public class User {
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastname = lastName;
     }
 
     public String getUsername() {

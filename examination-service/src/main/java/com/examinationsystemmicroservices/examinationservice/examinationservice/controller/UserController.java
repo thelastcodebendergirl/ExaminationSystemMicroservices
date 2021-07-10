@@ -25,7 +25,7 @@ public class UserController {
 	
 	@RequestMapping(path ="/userCreated" , method = RequestMethod.POST)
 	
-	public void   getCourses(@RequestBody UserDataModel model)
+	public void   userCreated(@RequestBody UserDataModel model)
 	{
 		User user = new User(model.username, model.password,model.name,model.lastname,model.userType);
 		userService.createUser(user);
