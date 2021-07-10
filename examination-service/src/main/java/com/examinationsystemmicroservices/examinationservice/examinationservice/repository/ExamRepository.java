@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.examinationsystemmicroservices.examinationservice.examinationservice.model.Course;
+import com.examinationsystemmicroservices.examinationservice.examinationservice.model.Exam;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long>{
+public interface ExamRepository extends JpaRepository<Exam, Long>
+{
 
 }
