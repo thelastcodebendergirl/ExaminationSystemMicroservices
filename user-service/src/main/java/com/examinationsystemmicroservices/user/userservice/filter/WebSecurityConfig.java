@@ -29,39 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
- /*   @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/api/user/login")
-                .loginProcessingUrl("/logging")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                // this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }*/
-
-/*    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/", "/api/user/login","/callback/", "/webjars/**", "/error**")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
-    }*/
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
+                .antMatchers(HttpMethod.POST, REGISTER_URL,"/api/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
