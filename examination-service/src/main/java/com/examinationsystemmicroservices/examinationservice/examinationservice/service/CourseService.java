@@ -46,7 +46,7 @@ public class CourseService {
 	{
 		courseRepository.save(course);
 	}
-	public void addStudent(Course course , Set<User> students)
+	public void addStudent(Course course , List<User> students)
 	{
 		course.addStudent(students);
 		courseRepository.save(course);

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,10 +37,23 @@ public class User {
     
     @Column(name="name")
     private String name;
+
+	@Column(name="lastName")
+    private String lastName;
+	
+ 	@Column(name="username")
+    private String username;
+ 	
+	@Column(name="password")
+    private String password;
+	
+	@Column(name="userType")
+    private String userType;
+    
+
  	public long getUserId() {
 		return userId;
 	}
-
 
 	public void setUserId(long userId) {
 		this.userId = userId;
@@ -67,18 +80,11 @@ public class User {
 	}
 
 
-	@Column(name="lastName")
-    private String lastName;
- 	@Column(name="username")
-    private String username;
-	@Column(name="password")
-    private String password;
-	@Column(name="userType")
-    private String userType;
-    
-
-    public User(String username, String password) {
+    public User(String username, String password ,String name ,String lastname ,String type) {
         this.username=username;
         this.password=password;
+        this.name=name;
+        this.lastName=lastname;
+        userType=type;
     }
 }

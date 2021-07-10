@@ -4,26 +4,21 @@ import java.util.List;
 
 public class CourseModel {
 	
-	public class CourseAddStudentModel
+	public static class CourseAddStudentModel
 	{
 		public long courseId;
 		public List<Long> studentIds;
 		
 	}
-	public class CourseUpdateModel
+	public static class CourseUpdateModel
 	{
 		public long courseId;
 		public String name ;
 	}
-	public class CourseCreateModel
+	public static class CourseCreateModel
 	{
 		public String teacherusername;
 		public String coursename ;
-		
-	}
-	public class CourseSearchModel
-	{
-		public long userId;
 		
 	}
 }

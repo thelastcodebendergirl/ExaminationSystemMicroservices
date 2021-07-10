@@ -38,7 +38,7 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @Table(name = "course" , schema = "public")
-public class Course implements Serializable{
+public class Course {
 
 
 	@Id
@@ -57,18 +57,24 @@ public class Course implements Serializable{
 	private User  teacher ;
 	
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    public List<User> getCourseStudents() {
+		return courseStudents;
+	}
+	public void setCourseStudents(List<User> courseStudents) {
+		this.courseStudents = courseStudents;
+	}
+	@ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "studentCourse", joinColumns = @JoinColumn(name = "courseId"))
-	private Set<User> courseStudents= new HashSet<User>();
+	private List<User> courseStudents= new ArrayList<User>();
 	
 	public Course( String name , User teacher ) {
 		this.name=name ;
 		this.teacher=teacher;
 		
 	}
-	public void addStudent(Set<User> students)
+	public void addStudent(List<User> students)
 	{
-		Set<User> deletedStudents =new HashSet<User>(courseStudents);
+		List<User> deletedStudents =new ArrayList<User>(courseStudents);
 		deletedStudents.removeAll(students);
 		courseStudents.removeAll(deletedStudents);
 		students.removeAll(courseStudents);

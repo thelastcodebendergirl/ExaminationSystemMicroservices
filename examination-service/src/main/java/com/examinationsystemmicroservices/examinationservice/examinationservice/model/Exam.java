@@ -19,12 +19,44 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "exam" , schema = "public")
-public class Exam implements Serializable{
+public class Exam {
+	public String getExamName() {
+		return examName;
+	}
+
+	public void setExamName(String examName) {
+		this.examName = examName;
+	}
+
+	public Exam() {
+
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public List<Question> getExamQestions() {
+		return examQestions;
+	}
+
+	public void setExamQestions(List<Question> examQestions) {
+		this.examQestions = examQestions;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

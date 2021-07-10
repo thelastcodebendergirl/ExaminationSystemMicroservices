@@ -7,5 +7,4 @@ import com.examinationsystemmicroservices.examinationservice.examinationservice.
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	User findAll(String username);
 }

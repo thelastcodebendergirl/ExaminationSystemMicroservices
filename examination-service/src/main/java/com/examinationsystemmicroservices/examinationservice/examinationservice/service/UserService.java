@@ -1,5 +1,6 @@
 package com.examinationsystemmicroservices.examinationservice.examinationservice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,12 @@ public class UserService {
 	
 	public List<User> getAllStudents()
 	{
-		return userRepository.findAll();
+		List<User> students = new ArrayList<User>();
+		for (User user : userRepository.findAll()) {
+			if(user.getUserType().equalsIgnoreCase("s"))
+				students.add(user);
+		}
+		return students;
 	}
 	public User getStudent(long studentId)
 	{
@@ -25,9 +31,20 @@ public class UserService {
 	{
 		return userRepository.getById(teacherId);
 	}
-	public User getTeacherByUserName(String username)
+	public User getUserByUserName(String username)
 	{
-		return userRepository.findAll(username);
+		List <User> allUser = userRepository.findAll();
+		
+		for (User user : allUser) {
+			if(user.getUsername().equals(username))
+				return user ;
+		}
+		
+		return  null ;
+	}
+		public User createUser(User user)
+	{
+		return userRepository.save(user);
 	}
 
 

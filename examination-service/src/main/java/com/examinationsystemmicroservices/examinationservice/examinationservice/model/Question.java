@@ -17,7 +17,9 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 @Entity
 @AllArgsConstructor
@@ -44,6 +46,16 @@ public class Question {
 	
 	@Column(name="answer" ,length = 1) @NotNull
 	private char answer ;
+
+	public Question(String question, String optionA, String optionB, String optionC, String optionD, char answer) {
+		super();
+		this.question = question;
+		this.optionA = optionA;
+		this.optionB = optionB;
+		this.optionC = optionC;
+		this.optionD = optionD;
+		this.answer = answer;
+	}
 
 
 }
