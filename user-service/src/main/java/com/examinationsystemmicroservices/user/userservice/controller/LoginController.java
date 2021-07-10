@@ -12,18 +12,10 @@ public class LoginController {
     @Autowired
     private UserServiceImpl userService;
 
-    /*@Autowired
-    private UserService userService;
-
-    @GetMapping("/{id}")
-    public User findDepartmentById(@PathVariable("id") Long userId) {
-        return userService.findUserById(userId);
-    }*/
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public String login(@RequestBody User user) {
         userService.loadUserByUsername(user.getUsername());
-        return "redirect:api/user/login";
+        return "done";
     }
 
 }

@@ -16,18 +16,6 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-/*    //todo: examination meto servise rest atılacak???
-
-    @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User findUserById(Long userId) {
-        return userRepository.findUserById(userId);
-    }*/
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
