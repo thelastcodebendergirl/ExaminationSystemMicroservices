@@ -1,9 +1,6 @@
 package com.examinationsystemmicroservices.examinationservice.examinationservice.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.hibernate.sql.Template;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.PathVariable;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.examinationsystemmicroservices.examinationservice.examinationservice.model.Course;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.model.CourseModel.CourseAddStudentModel;
@@ -29,6 +20,7 @@ import com.examinationsystemmicroservices.examinationservice.examinationservice.
 
 import javax.servlet.http.HttpServletRequest;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/course")
 public class CourseController {
@@ -62,11 +54,9 @@ public class CourseController {
 	{
 		try {
 
-			String bearerToken = request.getHeader("Authorization");
-
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.set("Authorization", bearerToken);
-
+			if(request.getMethod().toLowerCase(Locale.ROOT).equals("options")){
+				return null;
+			}
 			 User teacher = userService.getUserByUserName(model.teacherusername);
 			 
 			 if(teacher == null )
