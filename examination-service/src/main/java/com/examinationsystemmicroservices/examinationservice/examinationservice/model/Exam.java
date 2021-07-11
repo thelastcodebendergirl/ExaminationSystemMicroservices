@@ -37,10 +37,6 @@ public class Exam {
 		this.examName = examName;
 	}
 
-	public Exam() {
-
-	}
-
 	public Course getCourse() {
 		return course;
 	}

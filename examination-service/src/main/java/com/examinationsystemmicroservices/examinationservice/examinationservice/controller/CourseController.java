@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.sql.Template;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -25,6 +27,8 @@ import com.examinationsystemmicroservices.examinationservice.examinationservice.
 import com.examinationsystemmicroservices.examinationservice.examinationservice.service.CourseService;
 import com.examinationsystemmicroservices.examinationservice.examinationservice.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/course")
 public class CourseController {
@@ -33,6 +37,8 @@ public class CourseController {
 	CourseService courseService ;
 	@Autowired
 	UserService userService ;
+
+
 	
 	@RequestMapping(path ="/getCourses/{username}" , method = RequestMethod.GET)
 	@ResponseBody
@@ -52,9 +58,14 @@ public class CourseController {
 		}
 	}
     @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
-	public ResponseEntity<Course>  createCourses(@RequestBody CourseCreateModel model)
+	public ResponseEntity<Course>  createCourses(@RequestBody CourseCreateModel model, HttpServletRequest request)
 	{
 		try {
+
+			String bearerToken = request.getHeader("Authorization");
+
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.set("Authorization", bearerToken);
 
 			 User teacher = userService.getUserByUserName(model.teacherusername);
 			 
@@ -64,7 +75,7 @@ public class CourseController {
 			 Course course = new Course (model.coursename ,teacher);
 			 courseService.createCourse(course);
 			 
-		     return new ResponseEntity<Course>(course,HttpStatus.OK);
+		     return new ResponseEntity<Course>(course,HttpStatus.OK) ;
 			 
 		}catch (Exception e) {
 	    	return new ResponseEntity<>(null,HttpStatus.UNPROCESSABLE_ENTITY);
@@ -140,5 +151,6 @@ public class CourseController {
 
     	return new ResponseEntity<String>("Successfull",HttpStatus.OK);
 	}
+
 
 }
